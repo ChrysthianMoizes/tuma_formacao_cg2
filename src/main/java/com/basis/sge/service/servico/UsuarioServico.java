@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -25,25 +26,33 @@ public class UsuarioServico {
     }
 
     public UsuarioDTO obterPorId(Integer id) {
-        Usuario usuario = usuarioRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Usuário não encontrado"));
+        Usuario usuario = obter(id);
         return usuarioMapper.toDto(usuario);
+    }
+
+    private Usuario obter(Integer id) {
+        return usuarioRepositorio.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("Usuário não encontrado"));
     }
 
     public UsuarioDTO salvar(UsuarioDTO usuarioDTO) {
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+        usuario.setChave(UUID.randomUUID().toString());
         usuarioRepositorio.save(usuario);
         return usuarioMapper.toDto(usuario);
     }
 
     public UsuarioDTO editar(UsuarioDTO usuarioDTO) {
+        Usuario usuarioSalvo = obter(usuarioDTO.getId());
         Usuario usuario = usuarioMapper.toEntity(usuarioDTO);
+        usuario.setChave(usuarioSalvo.getChave());
         usuarioRepositorio.save(usuario);
         return usuarioMapper.toDto(usuario);
     }
 
     public void remover(Integer id) {
-        usuarioRepositorio.deleteById(id);
+        Usuario usuario = obter(id);
+        usuarioRepositorio.delete(usuario);
     }
-
 
 }

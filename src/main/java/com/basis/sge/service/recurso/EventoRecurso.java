@@ -1,7 +1,7 @@
 package com.basis.sge.service.recurso;
 
-import com.basis.sge.service.servico.UsuarioServico;
-import com.basis.sge.service.servico.dto.UsuarioDTO;
+import com.basis.sge.service.servico.EventoServico;
+import com.basis.sge.service.servico.dto.EventoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,39 +17,39 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api/eventos")
 @RequiredArgsConstructor
-public class UsuarioRecurso {
+public class EventoRecurso {
 
-    private final UsuarioServico usuarioServico;
+    private final EventoServico eventoServico;
 
     @GetMapping
-    public ResponseEntity<List<UsuarioDTO>> listar() {
-        List<UsuarioDTO> list = usuarioServico.listar();
+    public ResponseEntity<List<EventoDTO>> listar() {
+        List<EventoDTO> list = eventoServico.listar();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> obterPorId(@PathVariable Integer id) {
-        UsuarioDTO entidadeDTO = usuarioServico.obterPorId(id);
+    public ResponseEntity<EventoDTO> obterPorId(@PathVariable Integer id) {
+        EventoDTO entidadeDTO = eventoServico.obterPorId(id);
         return ResponseEntity.ok(entidadeDTO);
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO entidadeDTO) {
-        UsuarioDTO entidade = usuarioServico.salvar(entidadeDTO);
+    public ResponseEntity<EventoDTO> salvar(@RequestBody EventoDTO entidadeDTO) {
+        EventoDTO entidade = eventoServico.salvar(entidadeDTO);
         return ResponseEntity.ok(entidade);
     }
 
     @PutMapping
-    public ResponseEntity<UsuarioDTO> editar(@RequestBody UsuarioDTO entidadeDTO) {
-        UsuarioDTO entidade = usuarioServico.salvar(entidadeDTO);
+    public ResponseEntity<EventoDTO> editar(@RequestBody EventoDTO entidadeDTO) {
+        EventoDTO entidade = eventoServico.salvar(entidadeDTO);
         return ResponseEntity.ok(entidade);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable Integer id) {
-        usuarioServico.remover(id);
+        eventoServico.remover(id);
         return ResponseEntity.ok().build();
     }
 

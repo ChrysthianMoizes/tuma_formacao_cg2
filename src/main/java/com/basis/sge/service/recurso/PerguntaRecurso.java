@@ -1,7 +1,7 @@
 package com.basis.sge.service.recurso;
 
-import com.basis.sge.service.servico.UsuarioServico;
-import com.basis.sge.service.servico.dto.UsuarioDTO;
+import com.basis.sge.service.servico.PerguntaServico;
+import com.basis.sge.service.servico.dto.PerguntaDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,39 +17,39 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/api/perguntas")
 @RequiredArgsConstructor
-public class UsuarioRecurso {
+public class PerguntaRecurso {
 
-    private final UsuarioServico usuarioServico;
+    private final PerguntaServico entidadeServico;
 
     @GetMapping
-    public ResponseEntity<List<UsuarioDTO>> listar() {
-        List<UsuarioDTO> list = usuarioServico.listar();
+    public ResponseEntity<List<PerguntaDTO>> listar() {
+        List<PerguntaDTO> list = entidadeServico.listar();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> obterPorId(@PathVariable Integer id) {
-        UsuarioDTO entidadeDTO = usuarioServico.obterPorId(id);
+    public ResponseEntity<PerguntaDTO> obterPorId(@PathVariable Integer id) {
+        PerguntaDTO entidadeDTO = entidadeServico.obterPorId(id);
         return ResponseEntity.ok(entidadeDTO);
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO entidadeDTO) {
-        UsuarioDTO entidade = usuarioServico.salvar(entidadeDTO);
+    public ResponseEntity<PerguntaDTO> salvar(@RequestBody PerguntaDTO entidadeDTO) {
+        PerguntaDTO entidade = entidadeServico.salvar(entidadeDTO);
         return ResponseEntity.ok(entidade);
     }
 
     @PutMapping
-    public ResponseEntity<UsuarioDTO> editar(@RequestBody UsuarioDTO entidadeDTO) {
-        UsuarioDTO entidade = usuarioServico.salvar(entidadeDTO);
+    public ResponseEntity<PerguntaDTO> editar(@RequestBody PerguntaDTO entidadeDTO) {
+        PerguntaDTO entidade = entidadeServico.salvar(entidadeDTO);
         return ResponseEntity.ok(entidade);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable Integer id) {
-        usuarioServico.remover(id);
+        entidadeServico.remover(id);
         return ResponseEntity.ok().build();
     }
 
