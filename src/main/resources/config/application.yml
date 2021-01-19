@@ -1,12 +1,19 @@
 application:
   appName: sge
   mail:
-    endereco-remetente: ancine-mailer@basis.com.br
-    nome-remetente: Ancine
+    endereco-remetente: chrysthian.moizes@basis.com.br
+    nome-remetente: Chrysthian
 
 spring:
   application:
     name: sgeservice
+
+  cloud:
+    stream:
+      bindings:
+        mailer:
+          destination: mailer
+
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/sge
