@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -36,9 +38,9 @@ public class UsuarioRecurso {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO entidadeDTO) {
+    public ResponseEntity<UsuarioDTO> salvar(@RequestBody UsuarioDTO entidadeDTO) throws URISyntaxException {
         UsuarioDTO entidade = usuarioServico.salvar(entidadeDTO);
-        return ResponseEntity.ok(entidade);
+        return ResponseEntity.created(new URI("/usuarios/" + entidade.getId())).body(entidade);
     }
 
     @PutMapping
