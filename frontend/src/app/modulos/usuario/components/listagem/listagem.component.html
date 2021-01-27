@@ -1,3 +1,9 @@
 <p>listagem works!</p>
 
-<app-card [titulo]="'Meu titulo component'"></app-card> 
+<ul>
+  <li *ngFor="let nome of usuarios">{{ nome }}</li>
+</ul>
+
+<div *ngIf="usuarios.length > 1">
+  Mais de um usuário
+</div>
