@@ -13,6 +13,10 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
+  buscarUsuarioPorId(id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.url}/${id}`);
+  }
+
   getUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(`${this.url}`);
   }
@@ -20,5 +24,15 @@ export class UsuarioService {
   salvarUsuario(usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(this.url, usuario);
   }
+
+  editarUsuario(usuario: Usuario): Observable<Usuario> {
+    return this.http.put<Usuario>(this.url, usuario);
+  }
+
+  deletarUsuario(id: number): Observable<any> {
+    return this.http.delete(`${this.url}/${id}`);
+  }
+
+
 
 }

@@ -13,4 +13,4 @@
 
 </form>
 
-<button (click)="salvar()" pButton type="button" label="Cadastrar" ></button>
+<button (click)="salvar()" pButton type="button" [label]="edicao ? 'Editar' : 'Cadastrar'" ></button>
